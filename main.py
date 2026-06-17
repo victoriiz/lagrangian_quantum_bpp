@@ -1,6 +1,6 @@
 import time
 from src.baselines import best_fit
-from src.classical_sa import simulated_annealing
+from src.classical_sa import simul_annealing
 from src.quantum_cqm import hybrid_lagrange
 
 problem_info = {
@@ -28,18 +28,18 @@ print(f"[BASELINE] Best Fit Bins Used: {bf_bins} | Time: {time.time() - start:.4
 
 # 2. Evaluate Classical Simulated Annealing
 start = time.time()
-_, _, sa_bins, _, _ = simulated_annealing(problem_info, alm=False, num_iterations=500)
+_, _, sa_bins, _, _ = simul_annealing(problem_info, alm=False, num_iter=500)
 print(f"[CLASSICAL] Standard SA Bins Used: {sa_bins} | Time: {time.time() - start:.4f}s")
 
 # 3. Evaluate Simulated Annealing with Augmented Lagrangian Methods (ALM)
 start = time.time()
-_, _, alm_bins, _, _ = simulated_annealing(problem_info, alm=True, num_iterations=500)
+_, _, alm_bins, _, _ = simul_annealing(problem_info, alm=True, num_iter=500)
 print(f"[CLASSICAL] ALM-Enhanced SA Bins Used: {alm_bins} | Time: {time.time() - start:.4f}s")
 
 # 4. Evaluate Hybrid Lagrangian Quantum Pipeline
 print("\n[QUANTUM] Connecting to D-Wave QPU endpoint...")
 try:
-    q_bins, energy, q_times = hybrid_lagrange_pipeline(problem_info, iterations=3)
+    q_bins, energy, q_times = hybrid_lagrange(problem_info, iterations=3)
     print(f"[QUANTUM] Quantum Lagrangian Bins Used: {q_bins} (Objective Energy: {energy:.4f})")
     print(f"          CQM Formulation Time: {q_times[0]:.4f}s | QPU Hardware Sample Time: {q_times[1]:.4f}s")
 except Exception as e:

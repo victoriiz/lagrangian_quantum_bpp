@@ -26,9 +26,9 @@ def acceptance_probability(old_cost, new_cost, temperature):
 def simul_annealing(problem_info, alm=False, initial_temp=100.0, cooling_rate=0.85,
                     num_iter=100, penalty=0.5, lagrange_mult=0.1, rho=1.1, track_metrics=False):
     bin_capacities = problem_info['bin_capacities']
-    bin_cap = problem_info['bin_cap']
-    num_bins = len(bin_capacities)
-    num_items = len(problem_info['item_weights'])
+    bin_cap = problem_info['bin_capacity']
+    num_bins = problem_info['num_bins']
+    num_items = problem_info['num_items']
 
     sol = initial_sol(num_items, num_bins)
 
@@ -48,7 +48,7 @@ def simul_annealing(problem_info, alm=False, initial_temp=100.0, cooling_rate=0.
     stag_count = 0
 
     for i in range(num_iter):
-        if alm and check_feasibility(sol, bin_capacities, bin_cap):
+        if alm and check_feasibility(sol, bin_capacities, bin_cap, stag_count):
             break
         new_sol = neighbor(sol, num_bins)
     

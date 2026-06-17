@@ -83,7 +83,7 @@ def hybrid_lagrange(problem_info, iterations=5):
 
     for i in range(iterations):
         lambda_values, mu_values = lagrangian_relaxation(num_items, bin_capacity, weights)
-        new_cqm, cqm_time = make_lagrangian_cqm(num_items, bin_capacity, weights, lambda_values, mu_values)
+        new_cqm, cqm_time = make_cqm(num_items, bin_capacity, weights, lambda_values, mu_values)
         total_cqm_time += cqm_time
         
         start_q = time.time()
