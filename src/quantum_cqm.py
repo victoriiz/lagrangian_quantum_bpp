@@ -2,6 +2,11 @@ import time
 from dwave.system import LeapHybridSampler
 from dimod import ConstrainedQuadraticModel, Binary
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 def make_cqm(num_items, bin_capacity, weights, lambdas, mus):
     start = time.time()
     cqm = ConstrainedQuadraticModel()
@@ -68,8 +73,8 @@ def hybrid_lagrange(problem_info, iterations=5):
     num_items = problem_info['num_items']
     weights = problem_info['bin_capacities']
     
-    # Initialize connection session once. Token is pulled directly from native system configurations.
-    sampler = LeapHybridCQMSampler()
+    api_token = os.getenv('DWAVE_API_TOKEN')
+    sampler = LeapHybridSampler(token=api_token)
     
     total_cqm_time = 0
     total_quantum_time = 0
