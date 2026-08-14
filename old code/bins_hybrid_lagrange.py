@@ -152,7 +152,7 @@ def hybrid_lagrange_plot(problem_info, iterations=5):
         new_cqm, _ = make_lagrangian_cqm(num_items, bin_capacity, bin_capacities, lambda_values, mu_values)
         
         # use quantum annealing to sample feasible solutions
-        sampler = LeapHybridCQMSampler(token='DEV-09aa362cd4b0d85aff63ab0546a90bfebaa8eae7')
+        sampler = LeapHybridCQMSampler(token='')
         sampler.parameters['num_reads'] = 100
         sampler.parameters['num_spin_reversal_transforms'] = 100
         sampleset = sampler.sample_cqm(new_cqm)
